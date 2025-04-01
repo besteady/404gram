@@ -20,10 +20,10 @@ def funny_describe(image: io.BytesIO) -> str:
     return response.text
 
 
-def cyber_transform(image: BytesIO) -> BytesIO:
+def киберпаааааанк(image: BytesIO) -> BytesIO:
     img = Image.open(image).convert("RGB")
     enhancer = ImageEnhance.Color(img)
-    img = enhancer.enhance(3.0)  # Increase color intensity
+    img = enhancer.enhance(3.0)
     img_cv = np.array(img)
     img_cv = cv2.cvtColor(img_cv, cv2.COLOR_RGB2BGR)
     edges = cv2.Canny(img_cv, 50, 200)
@@ -43,7 +43,6 @@ def random_filter(image: Image.Image) -> Image.Image:
         ImageFilter.BLUR,
         ImageFilter.DETAIL,
         ImageFilter.EDGE_ENHANCE,
-        # ImageFilter.EMBOSS,
         ImageFilter.SHARPEN,
         ImageFilter.SMOOTH,
     ]
@@ -94,7 +93,7 @@ def change_resolution(image: Image.Image) -> Image.Image:
     return image.resize(new_size, Image.LANCZOS)
 
 
-def transform(image: BytesIO) -> BytesIO:
+def улучшаем(image: BytesIO) -> BytesIO:
     img = Image.open(image)
     img = random_filter(img)
     for _ in range(10):
@@ -107,7 +106,7 @@ def transform(image: BytesIO) -> BytesIO:
     return output
 
 
-def nothing(thing):
+def ничего(thing):
     return thing
 
 
@@ -140,14 +139,13 @@ import random
 
 def translate_text(text: str, cycles: int = 3) -> str:
     translator = Translator()
-    languages = ["en", "fr", "de", "es", "it", "zh-cn", "ja", "ko"]  # Список языков
+    languages = ["en", "fr", "de", "es", "it", "zh-cn", "ja", "ko"]
     current_text = text
 
     for _ in range(cycles):
-        lang = random.choice(languages)  # Выбираем случайный язык
-        current_text = translator.translate(current_text, dest=lang).text  # Переводим
+        lang = random.choice(languages)
+        current_text = translator.translate(current_text, dest=lang).text
 
-    # Возвращаем обратно на русский
     final_text = translator.translate(current_text, dest="ru").text
     return final_text
 
@@ -156,7 +154,7 @@ from deep_translator import GoogleTranslator
 import random
 
 
-def translate_text2(text: str, cycles: int = 1) -> str:
+def го_прекрасный_текст(text: str, cycles: int = 1) -> str:
     languages = ["en", "fr", "de", "es", "it", "zh-CN", "ja", "ko"]
     current_text = text
 
@@ -194,25 +192,19 @@ import random
 from io import BytesIO
 
 
-def add_image_to_image(image: BytesIO) -> BytesIO:
-    # Открываем основное изображение
-    base_image = Image.open(image)  # Здесь нужно указать путь к основному изображению
+def еще_капибару(image: BytesIO) -> BytesIO:
+    base_image = Image.open(image)
 
-    # Открываем изображение, которое нужно добавить
     overlay_image = Image.open("./static/images/1123.jpeg").resize((100, 100))
 
-    # Получаем размеры основного изображения и накладываемого изображения
     base_width, base_height = base_image.size
     overlay_width, overlay_height = overlay_image.size
 
-    # Генерируем случайные координаты для размещения накладываемого изображения
     x = random.randint(0, base_width - overlay_width)
     y = random.randint(0, base_height - overlay_height)
 
-    # Вставляем накладываемое изображение на основное
     base_image.paste(overlay_image, (x, y), overlay_image.convert("RGBA"))
 
-    # Сохраняем итоговое изображение в BytesIO
     output = BytesIO()
     base_image.save(output, format="PNG")
     output.seek(0)
@@ -221,12 +213,12 @@ def add_image_to_image(image: BytesIO) -> BytesIO:
 
 
 images_pipeline = [
-    nothing,
-    cyber_transform,
-    transform,
-    add_image_to_image,
-    add_image_to_image,
-    add_image_to_image,
-    add_image_to_image,
+    ничего,
+    киберпаааааанк,
+    улучшаем,
+    еще_капибару,
+    еще_капибару,
+    еще_капибару,
+    еще_капибару,
 ]
-text_pipeline = [nothing, translate_text2]
+text_pipeline = [ничего, го_прекрасный_текст]
