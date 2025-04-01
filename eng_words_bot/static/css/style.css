@@ -1,4 +1,14 @@
 /* static/css/style.css - Неоновый вырвиглаз */
+@keyframes blink {
+    0% { color: #0ff; text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 15px #0ff; }
+    50% { color: #ff00ff; text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 15px #ff00ff; }
+    100% { color: #ff4500; text-shadow: 0 0 5px #ff4500, 0 0 10px #ff4500, 0 0 15px #ff4500; }
+}
+
+p {
+    animation: blink 1s infinite alternate;
+}
+
 body {
     font-family: sans-serif;
     margin: 0;
@@ -7,7 +17,7 @@ body {
     color: #0ff;
     text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 15px #0ff;
     text-align: left;
-    font-size: 10px;
+    font-size: 20px;
 }
 
 a {
@@ -15,7 +25,7 @@ a {
     text-decoration: none;
     font-weight: bold;
     text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff;
-    font-size: 10px;
+    font-size: 20px;
 }
 
 a:hover {
@@ -82,26 +92,123 @@ main {
     border-radius: 5px;
     box-shadow: 0 0 10px #ff00ff;
     text-align: left;
-    font-size: 10px;
+    font-size: 20px;
 }
 
 .new-post-form button {
     padding: 5px;
-    font-size: 10px;
+    font-size: 20px;
 }
 
 .status-message.success, .status-message.error {
-    font-size: 10px;
+    font-size: 20px;
 }
 
 footer {
     text-align: left;
     margin-top: 20px;
     padding: 10px;
-    font-size: 10px;
+    font-size: 20px;
 }
 
 img {
     width: 70%;
     height: auto;
+}
+
+button {
+    background: linear-gradient(145deg, #ff00ff, #00ffff);
+    border: 2px solid #00ffff;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 16px;
+    padding: 12px 24px;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 15px #ff00ff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #ff00ff;
+}
+
+button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px #ff00ff, 0 0 30px #ff00ff, 0 0 45px #00ffff;
+}
+
+button:active {
+    transform: scale(0.95);
+    box-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff;
+}
+
+input {
+    background: linear-gradient(145deg, #ff00ff, #00ffff);
+    border: 2px solid #00ffff;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 16px;
+    padding: 12px 24px;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 15px #ff00ff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #ff00ff;
+}
+
+input:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px #ff00ff, 0 0 30px #ff00ff, 0 0 45px #00ffff;
+}
+
+input:active {
+    transform: scale(0.95);
+    box-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff;
+}
+
+textarea {
+    background: linear-gradient(145deg, #ff00ff, #00ffff);
+    border: 2px solid #00ffff;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 16px;
+    padding: 12px 24px;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 15px #ff00ff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #ff00ff;
+}
+
+textarea:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px #ff00ff, 0 0 30px #ff00ff, 0 0 45px #00ffff;
+}
+
+textarea:active {
+    transform: scale(0.95);
+    box-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff;
+}
+
+/* Дрожащие изображения */
+img {
+    animation: shake 0.2s infinite;
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    10% { transform: translateX(-5px); }
+    20% { transform: translateX(5px); }
+    30% { transform: translateX(-5px); }
+    40% { transform: translateX(5px); }
+    50% { transform: translateX(-5px); }
+    60% { transform: translateX(5px); }
+    70% { transform: translateX(-5px); }
+    80% { transform: translateX(5px); }
+    90% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
 }

@@ -9,6 +9,7 @@ import io
 import google.generativeai as genai
 from PIL import Image
 import os
+import asyncio
 
 def funny_describe(image: io.BytesIO) -> str:
     genai.configure(api_key=os.environ.get("GEMINI_API_KEY"))
@@ -88,20 +89,57 @@ def nothing(thing):
     return thing
 
 
-def chain_translate(text, language_chain=['en', 'fr', 'de', 'es']):
+async def chain_translate(text, language_chain=['en', 'fr', 'de', 'es']):
     translator = Translator()
     current_text = text
     for lang in language_chain:
-        translation = translator.translate(current_text, dest=lang)
+        translation = await translator.translate(current_text, dest=lang)
         current_text = translation.text
         print(f"Перевод на {lang}: {current_text}")
-    final_translation = translator.translate(current_text, dest='ru')
+    final_translation = await translator.translate(current_text, dest='ru')
     return final_translation.text
 
+def drive(c):
+    while True:
+        try:
+            c.send(None)
+        except StopIteration as e:
+            return e.value
+def chain_translate_no_async(text, language_chain=['en', 'fr', 'de', 'es']):
+    return drive(chain_translate(text, language_chain))
+
+from googletrans import Translator
+import random
+
+def translate_text(text: str, cycles: int = 1) -> str:
+    translator = Translator()
+    languages = ['en', 'fr', 'de', 'es', 'it', 'zh-cn', 'ja', 'ko']  # Список языков
+    current_text = text
+
+    for _ in range(cycles):
+        lang = random.choice(languages)  # Выбираем случайный язык
+        current_text = translator.translate(current_text, dest=lang).text  # Переводим
+
+    # Возвращаем обратно на русский
+    final_text = translator.translate(current_text, dest='ru').text
+    return final_text
+
+from deep_translator import GoogleTranslator
+import random
+
+def translate_text2(text: str, cycles: int = 2) -> str:
+    languages = ['en', 'fr', 'de', 'es', 'it', 'zh-CN', 'ja', 'ko']
+    current_text = text
+
+    for _ in range(cycles):
+        lang = random.choice(languages)
+        current_text = GoogleTranslator(source='auto', target=lang).translate(current_text)
+
+    final_text = GoogleTranslator(source='auto', target='ru').translate(current_text)
+    return final_text
+
+
 def add_text(image: io.BytesIO) -> io.BytesIO:
-    """
-    Добавляет текст по центру изображения.
-    """
     img = Image.open(image)
     draw = ImageDraw.Draw(img)
 
@@ -109,7 +147,6 @@ def add_text(image: io.BytesIO) -> io.BytesIO:
     txt = funny_describe(image)
 
     font = ImageFont.load_default()
-    # print(f"{txt=}")
     text_width, text_height = draw.textsize(txt, font=font)
     img_width, img_height = img.size
     position = ((img_width - text_width) // 2, (img_height - text_height) // 2)
@@ -121,5 +158,23 @@ def add_text(image: io.BytesIO) -> io.BytesIO:
     output.seek(0)
     return output
 
-images_pipeline = [nothing, cyber_transform, add_text, transform]
-text_pipeline = [nothing]
+def add_image_to_image(image: BytesIO, added_image: BytesIO) -> BytesIO:
+    base_image = Image.open(image)
+    overlay_image = Image.open('./static/images/1123.jpeg')
+
+    base_width, base_height = base_image.size
+    overlay_width, overlay_height = overlay_image.size
+
+    x_offset = random.randint(0, base_width - overlay_width)
+    y_offset = random.randint(0, base_height - overlay_height)
+
+    base_image.paste(overlay_image, (x_offset, y_offset), overlay_image.convert('RGBA').split()[3] if overlay_image.mode == 'RGBA' else None)
+
+    output = BytesIO()
+    base_image.save(output, format='PNG')
+    output.seek(0)
+    return output
+
+
+images_pipeline = [nothing, cyber_transform, transform]
+text_pipeline = [nothing, translate_text2]

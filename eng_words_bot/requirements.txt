@@ -2,14 +2,11 @@ fastapi
 uvicorn[standard]
 sqlalchemy
 pydantic
-python-multipart  # Для обработки загрузки файлов
-jinja2            # Для HTML шаблонов
-python-dotenv     # Для .env файла (опционально)
-# Для SQLite (встроен в Python, но SQLAlchemy его использует)
-# Если будете использовать PostgreSQL или MySQL, добавьте соответствующие драйверы:
-# psycopg2-binary  # Для PostgreSQL
-# mysqlclient      # Для MySQL
+python-multipart
+jinja2
+python-dotenv
 pillow
 opencv-python
-googletrans
+googletrans==4.0.0-rc1
 google-generativeai
+deep-translator

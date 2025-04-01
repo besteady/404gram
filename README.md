@@ -4,7 +4,11 @@
 ## Как запускать
 
 ```bash
-docker-compose up
+cd eng_words_bot
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install -r requirements.txt
+uvicorn app.main:app --reload
 ```
 
-Открывать: <http://localhost:3000/>
+Открывать: <http://localhost:8000/>
