@@ -12,3 +12,4 @@ python-dotenv     # Для .env файла (опционально)
 pillow
 opencv-python
 googletrans
+google-generativeai

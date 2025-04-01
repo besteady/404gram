@@ -5,6 +5,17 @@ from PIL import Image, ImageEnhance, ImageFilter
 from googletrans import Translator
 import cv2
 import numpy as np
+import io
+import google.generativeai as genai
+from PIL import Image
+import os
+
+def funny_describe(image: io.BytesIO) -> str:
+    genai.configure(api_key=os.environ.get("GEMINI_API_KEY"))
+    img = Image.open(image)
+    model = genai.GenerativeModel("gemini-1.5-flash")
+    response = model.generate_content(["Опиши это изображение с юмором.", img])
+    return response.text
 
 def cyber_transform(image: BytesIO) -> BytesIO:
     img = Image.open(image).convert("RGB")
@@ -27,9 +38,9 @@ def cyber_transform(image: BytesIO) -> BytesIO:
 def random_filter(image: Image.Image) -> Image.Image:
     filters = [
         ImageFilter.BLUR,
-        # ImageFilter.DETAIL,
-        # ImageFilter.EDGE_ENHANCE,
-        ImageFilter.EMBOSS,
+        ImageFilter.DETAIL,
+        ImageFilter.EDGE_ENHANCE,
+        # ImageFilter.EMBOSS,
         ImageFilter.SHARPEN,
         ImageFilter.SMOOTH
     ]
@@ -87,5 +98,28 @@ def chain_translate(text, language_chain=['en', 'fr', 'de', 'es']):
     final_translation = translator.translate(current_text, dest='ru')
     return final_translation.text
 
-images_pipeline = [nothing, cyber_transform, transform]
+def add_text(image: io.BytesIO) -> io.BytesIO:
+    """
+    Добавляет текст по центру изображения.
+    """
+    img = Image.open(image)
+    draw = ImageDraw.Draw(img)
+
+
+    txt = funny_describe(image)
+
+    font = ImageFont.load_default()
+    # print(f"{txt=}")
+    text_width, text_height = draw.textsize(txt, font=font)
+    img_width, img_height = img.size
+    position = ((img_width - text_width) // 2, (img_height - text_height) // 2)
+
+    draw.text(position, txt, font=font, fill=(255, 255, 255))
+
+    output = io.BytesIO()
+    img.save(output, format="PNG")
+    output.seek(0)
+    return output
+
+images_pipeline = [nothing, cyber_transform, add_text, transform]
 text_pipeline = [nothing]
