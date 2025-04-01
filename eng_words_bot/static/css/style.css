@@ -1,0 +1,182 @@
+/* static/css/style.css */
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fafafa;
+    color: #262626;
+}
+
+a {
+    color: #00376b;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+header {
+    background-color: #fff;
+    border-bottom: 1px solid #dbdbdb;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+header h1 a {
+    font-size: 1.8em;
+    color: #262626;
+    text-decoration: none;
+}
+
+header nav form {
+    display: flex;
+    gap: 5px;
+}
+
+header nav input[type="text"] {
+    padding: 5px;
+    border: 1px solid #dbdbdb;
+    border-radius: 3px;
+}
+
+header nav button {
+    padding: 5px 10px;
+    background-color: #0095f6;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+header nav button:hover {
+    background-color: #007ac5;
+}
+
+
+main {
+    max-width: 935px; /* Ширина контента как в Инстаграме */
+    margin: 20px auto;
+    padding: 0 20px;
+    display: grid;
+    gap: 30px; /* Пространство между секциями */
+}
+
+.profile-header {
+    background-color: #fff;
+    border: 1px solid #dbdbdb;
+    padding: 20px;
+    border-radius: 3px;
+    text-align: center;
+}
+
+.new-post-form {
+    background-color: #fff;
+    border: 1px solid #dbdbdb;
+    padding: 20px;
+    border-radius: 3px;
+}
+
+.new-post-form h2 {
+    margin-top: 0;
+    text-align: center;
+}
+
+.new-post-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.new-post-form label {
+    font-weight: bold;
+}
+
+.new-post-form input[type="text"],
+.new-post-form textarea,
+.new-post-form input[type="file"] {
+    padding: 8px;
+    border: 1px solid #dbdbdb;
+    border-radius: 3px;
+    width: 95%; /* Чтобы не вылезало за рамки */
+}
+
+.new-post-form button {
+    padding: 10px;
+    background-color: #0095f6;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 1em;
+}
+.new-post-form button:hover {
+    background-color: #007ac5;
+}
+
+.status-message {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 10px;
+}
+.status-message.success { color: green; }
+.status-message.error { color: red; }
+
+
+.post-feed {
+    display: grid;
+    gap: 20px; /* Пространство между постами */
+}
+
+.post {
+    background-color: #fff;
+    border: 1px solid #dbdbdb;
+    border-radius: 3px;
+    overflow: hidden; /* Чтобы изображение не вылезало */
+}
+
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    font-size: 0.9em;
+}
+
+.post-author a {
+    font-weight: bold;
+    color: #262626;
+}
+
+.post-timestamp {
+    color: #8e8e8e;
+    font-size: 0.8em;
+}
+
+.post-image img {
+    width: 100%;
+    height: auto; /* Сохраняем пропорции */
+    display: block; /* Убирает лишний отступ снизу */
+    border-top: 1px solid #dbdbdb;
+    border-bottom: 1px solid #dbdbdb;
+}
+
+.post-content {
+    padding: 10px 15px;
+}
+
+.post-content p {
+    margin: 0;
+}
+
+footer {
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px;
+    color: #8e8e8e;
+    font-size: 0.9em;
+}
