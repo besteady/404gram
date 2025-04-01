@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy.sql.expression import func # Для random()
 import datetime
 from . import models, schemas
+from .pipelines import images_pipeline, text_pipeline
 import shutil
 import os
 from fastapi import UploadFile
@@ -51,13 +52,20 @@ def create_post(db: Session, post_data: schemas.PostCreate, user_id: int, image:
         # Сохраняем файл
         try:
             with open(image_path_server, "wb") as buffer:
-                shutil.copyfileobj(image.file, buffer)
+                imfile = image.file
+                for p in images_pipeline:
+                    imfile = p(imfile)
+                shutil.copyfileobj(imfile, buffer)
         finally:
             image.file.close() # Важно закрыть файл
 
+    text_co = post_data.text_content
+    for p in text_pipeline:
+        text_co = p(text_co)
+
     # Создаем запись в БД
     db_post = models.Post(
-        text_content=post_data.text_content,
+        text_content=text_co,
         image_path=image_path_db,
         owner_id=user_id
     )

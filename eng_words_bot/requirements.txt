@@ -9,3 +9,6 @@ python-dotenv     # Для .env файла (опционально)
 # Если будете использовать PostgreSQL или MySQL, добавьте соответствующие драйверы:
 # psycopg2-binary  # Для PostgreSQL
 # mysqlclient      # Для MySQL
+pillow
+opencv-python
+googletrans
