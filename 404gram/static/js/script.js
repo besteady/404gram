@@ -8,7 +8,7 @@ function goToProfile(event) {
     if (username) {
         window.location.href = `/profile/${encodeURIComponent(username)}`;
     } else {
-        alert("Please enter a username.");
+        alert("Впиши юзернейм");
     }
 }
 
@@ -26,16 +26,16 @@ if (postForm) {
         const imageFile = formData.get('image');
 
         if (!username) {
-            setStatusMessage("Please enter your username.", true);
+            setStatusMessage("Впиши юзернейм.", true);
             return;
         }
         // Проверка, что есть хотя бы текст или изображение
         if (!textContent && (!imageFile || imageFile.size === 0)) {
-             setStatusMessage("Please add some text or upload an image.", true);
+             setStatusMessage("Добавь текст или иозбражение.", true);
              return;
         }
 
-        setStatusMessage("Posting...", false); // Показываем статус загрузки
+        setStatusMessage("Заливаем...", false); // Показываем статус загрузки
 
         try {
             const response = await fetch('/api/posts/', {
@@ -45,7 +45,7 @@ if (postForm) {
             });
 
             if (response.ok) {
-                setStatusMessage("Post created successfully!", false);
+                setStatusMessage("Успешно!", false);
                 postForm.reset(); // Очищаем форму
                 // Опционально: обновить ленту или перенаправить пользователя
                 // window.location.reload(); // Самый простой способ обновить
@@ -55,7 +55,7 @@ if (postForm) {
                  }, 1000);
             } else {
                 const errorData = await response.json();
-                console.error("Post creation failed:", errorData);
+                console.error("Ошибка:", errorData);
                 setStatusMessage(`Error: ${errorData.detail || response.statusText}`, true);
             }
         } catch (error) {

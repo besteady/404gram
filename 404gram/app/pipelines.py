@@ -195,7 +195,7 @@ from io import BytesIO
 def еще_капибару(image: BytesIO) -> BytesIO:
     base_image = Image.open(image)
 
-    overlay_image = Image.open("./static/images/1123.jpeg").resize((100, 100))
+    overlay_image = Image.open(random.choice(["./static/images/1123.jpeg", "./static/images/d056158e084ab3f51afeb559a6bd7305 (фон удален).jpeg"])).resize((100, 100))
 
     base_width, base_height = base_image.size
     overlay_width, overlay_height = overlay_image.size
