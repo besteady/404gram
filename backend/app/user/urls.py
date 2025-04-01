@@ -5,7 +5,7 @@ from rest_framework_jwt.views import obtain_jwt_token
 
 from user import views
 
-app_name = 'user'
+app_name = 'users'
 
 urlpatterns = [
     path('register/', views.RegisterUserView.as_view(),
