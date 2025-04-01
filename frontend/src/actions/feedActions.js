@@ -5,7 +5,7 @@ import { GET_FEED, FEED_LOADING } from './types';
 export const getUserFeed = () => dispatch => {
   dispatch(setFeedLoading());
   axios
-    .get('http://localhost:8000/api/posts/feed/')
+    .get('http://localhost:8000/api/post/feed/')
     .then(res =>
       dispatch({
         type: GET_FEED,
@@ -23,7 +23,7 @@ export const getUserFeed = () => dispatch => {
 export const getLatestPosts = () => dispatch => {
   dispatch(setFeedLoading());
   axios
-    .get('http://localhost:8000/api/posts/')
+    .get('http://localhost:8000/api/post/')
     .then(res =>
       dispatch({
         type: GET_FEED,
