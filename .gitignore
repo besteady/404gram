@@ -172,3 +172,6 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+eng_words_bot/static/images/**
+eng_words_bot/404gram.db
